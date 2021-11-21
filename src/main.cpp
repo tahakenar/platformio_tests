@@ -11,9 +11,7 @@
 const float mapping_coef = 300;
 
 /* NOTE: Change these according to the motor/encoder num.
-
   ARRAY_LEN: Number of actuators/encoders. # of actuators == # of encoders in that case
-
   STR_MSG_LEN: Total length of the string message that is used to communicate with low level controller
   
   Example: 

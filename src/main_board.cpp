@@ -76,7 +76,9 @@ void MainBoard::parseEncoderFeedback(){
         for (int i = 0; i < _array_length; i += 4){
             mapped = "";
             direction = detectDirection(str_enc_feedback[i+1]);
-            mapped += str_enc_feedback[i+2] + str_enc_feedback[i+3] + str_enc_feedback[i+4];
+            mapped += (char) str_enc_feedback[i+2];
+            mapped += (char) str_enc_feedback[i+3];
+            mapped += (char) str_enc_feedback[i+4];
             angle = decodeRadians(mapped);
             enc_feedback_to_send[counter] = direction*angle;
             counter++;
