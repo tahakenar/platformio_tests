@@ -23,7 +23,11 @@ MainBoard::~MainBoard(){
 }
 
 void MainBoard::assignFeedbackArr(std_msgs::Float64MultiArray &goal_arr){
-    goal_arr.data = feedback_arr.data;
+    goal_arr = feedback_arr;
+}
+
+std_msgs::Float64MultiArray MainBoard::returnFeedbackMultiArr(){
+    return feedback_arr;
 }
 
 void MainBoard::assignCommandArr(const std_msgs::Float64MultiArray &given_arr){

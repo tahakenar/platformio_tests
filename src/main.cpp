@@ -1,7 +1,7 @@
 #include <HardwareSerial.h>
 #include "main_board.h"
 
-//TODO: TEST TEST TEST
+//TODO: Serial communication tests
 
 #define TRUE 1
 #define FALSE 0
@@ -106,10 +106,24 @@ void commandCallback(const std_msgs::Float64MultiArray &command_msg){
 
 
     nh.loginfo("New command!");
+
+    /* TEST */
+    ongoing_str[0] = 'A';
+    ongoing_str[STR_MSG_LEN-1] = 'B';
+    ongoing_str.toCharArray(debug_ch,50);
+    debug_str.data = debug_ch;
+    debug_pub.publish(&debug_str);
+
+    board.assignStrEncFeedback(ongoing_str);
+    board.parseEncoderFeedback();
+    board.arrToMultiArr();
+    publishEncoderFeedback();
+    /* ---- */
 }
 
 void publishEncoderFeedback(){
-    board.assignFeedbackArr(feedback_pub_arr);
+    //board.assignFeedbackArr(feedback_pub_arr);
+    feedback_pub_arr = board.returnFeedbackMultiArr();
     feedback_pub.publish(&feedback_pub_arr);
     nh.loginfo("Encoder feedback has published!");
 }
@@ -132,11 +146,9 @@ void readDataFromMCU(){
             incoming_str.toCharArray(str_arr,STR_MSG_LEN+1);
             nh.loginfo(str_arr);
 
-            ///////////////////// WIP ////////////////////////
             board.assignStrEncFeedback(incoming_str);
             board.parseEncoderFeedback();
             publishEncoderFeedback();
-            //////////////////////////////////////////////////
 
             incoming_str = "";
         }   

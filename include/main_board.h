@@ -32,6 +32,7 @@ private:
 public:
 
     MainBoard(int arr_len, int str_len, float map_coef);
+    // Constructor. Assigns necessary data and allocates memory for
 
     ~MainBoard();
 
@@ -58,6 +59,9 @@ public:
 
     void arrToMultiArr();
     // Assigns the data in float array into the std_msgs::Float64MultiArray
+
+    std_msgs::Float64MultiArray returnFeedbackMultiArr();
+    // Returns _feedback_arr
 
     void multiArrToArr();
     // Assigns the data in the std_msgs::Float64MultiArray to the private array
