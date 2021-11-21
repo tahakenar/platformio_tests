@@ -73,7 +73,7 @@ void MainBoard::parseEncoderFeedback(){
         float angle;
         String mapped;
         int counter = 0;
-        for (int i = 0; i < _array_length; i += 4){
+        for (int i = 0; i < _array_length*_str_piece_len; i += _str_piece_len){
             mapped = "";
             direction = detectDirection(str_enc_feedback[i+1]);
             mapped += (char) str_enc_feedback[i+2];

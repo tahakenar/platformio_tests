@@ -14,6 +14,7 @@ private:
     int _array_length;
     int _str_msg_length;
     float _radian_map_coef;
+    int _str_piece_len = 4;
     // Some predefined data. Can be changed while constructing a new member, according to the needs
 
     float *commands_to_send;
