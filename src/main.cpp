@@ -4,6 +4,8 @@
 #define TRUE 1
 #define FALSE 0
 
+//#define TEST
+
 #define ARRAY_LEN 1
 #define STR_MSG_LEN (ARRAY_LEN*4 + 2)
 const float mapping_coef = 300;
@@ -84,7 +86,10 @@ void loop(){
     nh.spinOnce();
 
     readDataFromMCU();
-    //publishEncoderFeedback();
+
+    #ifdef TEST
+        publishEncoderFeedback();
+    #endif
 
     delay(1);
 }
@@ -103,8 +108,7 @@ void commandCallback(const std_msgs::Float64MultiArray &command_msg){
 
     nh.loginfo("New command!");
 
-    /* TEST */
-    /*
+#ifdef TEST
     ongoing_str[0] = 'A';
     ongoing_str[STR_MSG_LEN-1] = 'B';
     ongoing_str.toCharArray(debug_ch,50);
@@ -115,11 +119,16 @@ void commandCallback(const std_msgs::Float64MultiArray &command_msg){
     board.parseEncoderFeedback();
     board.arrToMultiArr();
     publishEncoderFeedback();
-    */
+#endif
+
 }
 
 void publishEncoderFeedback(){
-    //board.assignFeedbackArr(feedback_pub_arr);
+
+    #ifdef TEST
+        board.assignFeedbackArr(feedback_pub_arr);
+    #endif
+
     feedback_pub_arr = board.returnFeedbackMultiArr();
     feedback_pub.publish(&feedback_pub_arr);
     nh.loginfo("Encoder feedback has published!");
